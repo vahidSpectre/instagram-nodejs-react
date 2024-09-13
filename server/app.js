@@ -13,7 +13,7 @@ app.use(
 
 app.get('/', (req, res, next) => {
   res.status(200).json({
-    message: 'server is up and running successfully!',
+    message: 'server is up and runnin successfully!',
   });
   next();
 });
