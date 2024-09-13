@@ -19,5 +19,5 @@ app.get('/', (req, res, next) => {
 });
 
 app.listen(8080, () => {
-  console.log('server is running');
+  console.log('server is running!');
 });
