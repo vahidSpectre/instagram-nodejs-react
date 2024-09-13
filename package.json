@@ -4,8 +4,8 @@
   "main": "index.js",
   "scripts": {
     "start": "concurrently \"npm run server\" \"npm run client\"",
-    "server": "cd server && nodemon app.js",
-    "client": "cd client && npm  start"
+    "server": "cd back-end && nodemon app.js",
+    "client": "cd front-end && npm  start"
   },
   "dependencies": {
     "express": "^4.21.0"
