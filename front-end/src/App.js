@@ -5,6 +5,7 @@ import './App.css';
 import { useSelector } from 'react-redux';
 function App() {
   const Signup = React.lazy(() => import('./pages/Signup'));
+  const Login = React.lazy(() => import('./pages/Login'));
   const Home = React.lazy(() => import('./pages/Home'));
 
   const token = useSelector(
@@ -12,11 +13,11 @@ function App() {
   );
 
   const AuthExists = ({ children }) => {
-   return token ? <Navigate to={'/'} /> : children;
+    return token ? <Navigate to={'/'} /> : children;
   };
 
   const RequireAuth = ({ children }) => {
-   return token ? children : <Navigate to={'/signup'} />;
+    return token ? children : <Navigate to={'/login'} />;
   };
 
   return (
@@ -27,6 +28,14 @@ function App() {
           element={
             <AuthExists>
               <Signup />
+            </AuthExists>
+          }
+        />
+        <Route
+          path="/login"
+          element={
+            <AuthExists>
+              <Login />
             </AuthExists>
           }
         />

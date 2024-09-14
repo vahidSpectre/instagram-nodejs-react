@@ -18,5 +18,24 @@ export const signup = async data => {
     return 'Sign up failed';
   }
   const result = await response.json();
-  return result;
+  return { response, result };
+};
+
+export const login = async data => {
+  const response = await fetch(
+    `${baseURL}/authentication/login`,
+    {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        email: data.email,
+        password: data.password,
+      }),
+    },
+  );
+  if (!response.ok) {
+    return 'Login failed';
+  }
+  const result = await response.json();
+  return { response, result };
 };
