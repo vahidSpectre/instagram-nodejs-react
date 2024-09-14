@@ -2,7 +2,10 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+
 const { isAuth } = require('./middlewares/isAuth');
+
+const authRoutes = require('./routes/auth');
 
 const app = express();
 
@@ -15,6 +18,8 @@ app.use(
     allowedHeaders: ['Authorization', 'Content-Type'],
   }),
 );
+
+app.use('/authentication', authRoutes);
 
 app.get('/', isAuth, (req, res, next) => {
   res.status(200).json({

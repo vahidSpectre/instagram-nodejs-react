@@ -3,11 +3,11 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
-  username: {
+  email: {
     type: String,
     required: true,
   },
-  email: {
+  username: {
     type: String,
     required: true,
   },
@@ -15,18 +15,23 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
-  imageurl: {
-    type: String,
-    required: true,
-  },
   bio: {
     type: String,
-    required: true,
+    defualt: 'New account',
   },
-  //   posts: {
-  //     type: mongoose.Types.ObjectId,
-  //     ref: 'posts',
-  //   },
+
+  imageurl: [
+    {
+      type: String,
+    },
+  ],
+
+  posts: [
+    {
+      type: mongoose.Types.ObjectId,
+      ref: 'posts',
+    },
+  ],
 });
 
 module.exports = mongoose.model('User', userSchema);
