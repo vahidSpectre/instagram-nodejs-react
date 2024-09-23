@@ -1,0 +1,36 @@
+:root {
+  --instagram-blue: #405de6;
+  --instagram-purple-blue: #5851db;
+  --instagram-purple: #833ab4;
+  --instagram-purple-red: #c13584;
+  --instagram-rose: #e1306c;
+  --instagram-bright-red: #fd1d1d;
+  --instagram-red-orange: #f56040;
+  --instagram-orange: #f77737;
+  --instagram-orange-yellow: #fcaf45;
+  --instagram-yellow: #ffdc80;
+
+  --x5rs0e5: #0a1014;
+  --xcmwmc4: #20272b;
+  --x1th0f3r: #144d37;
+  --xdlba4p: rgba(17, 27, 33, 0.2);
+  --x1ny6skj: #0a1014;
+  --x1rmap8s: #20272b;
+  --xamcbhg: #21c063;
+  --x1fn4p78: #0a1014;
+  --xfls942: rgba(255, 255, 255, 0.3);
+  --x1l9roa6: #a791ff;
+  --xyeapbb: #20272b;
+  --x29xchp: #3e474d;
+  --xpkxt7q: #53bdeb;
+
+  --bw: #ffffff;
+  --black-1:#000000;
+  --black-2:#1f1f1f;
+  --black-3:#2c2c2c;
+  --black-4:#434343;
+
+
+  --sidebar-width: 10%;
+  --base-unit: 4px;
+}

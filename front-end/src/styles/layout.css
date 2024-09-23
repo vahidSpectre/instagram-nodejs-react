@@ -1,0 +1,43 @@
+@import url(./variables.css);
+
+.main {
+  background-color: rgb(255, 145, 0);
+  width: calc(100% - var(--sidebar-width));
+  height: 300vh;
+}
+@media only screen and (max-width: 576px) {
+  .main {
+    background-color: blue;
+    width: 100%;
+    margin: 0;
+  }
+}
+
+@media only screen and (min-width: 577px) and (max-width: 768px) {
+  .main {
+    background-color: rgb(0, 255, 55);
+    width: 100%;
+    margin: 0;
+  }
+}
+
+@media only screen and (min-width: 769px) and (max-width: 1024px) {
+  .main {
+    background-color: rgb(208, 255, 0);
+    margin: 0 var(--sidebar-width);
+  }
+}
+
+@media only screen and (min-width: 1025px) and (max-width: 1440px) {
+  .main {
+    background-color: rgb(0, 255, 225);
+    margin: 0 var(--sidebar-width);
+  }
+}
+
+@media only screen and (min-width: 1441px) {
+  .main {
+    background-color: rgb(255, 0, 251);
+    margin: 0 var(--sidebar-width);
+  }
+}
