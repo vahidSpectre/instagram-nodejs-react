@@ -1,9 +1,9 @@
 import React from 'react';
 
-import styles from '../styles/layout.css';
+import sharedStyles from '../styles/layout.module.css';
 import classes from './Search.module.css';
 const Search = () => {
-  return <div className={styles.main}>Search</div>;
+  return <div className={`${classes.main} ${sharedStyles.shared}`}>Search</div>;
 };
 
 export default Search;

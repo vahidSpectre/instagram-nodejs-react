@@ -5,26 +5,18 @@ import { motion } from 'framer-motion';
 
 import CustomModal from './CustomModal';
 
-import { size } from '../utils/helpers';
+import { windowsSize } from '../utils/helpers';
 
 import classes from './NewPost.module.css';
 const NewPost = ({ open, onClose }) => {
   const [extend, setExtend] = useState(0);
-  const [size, setSize] = useState('')
+  const [size, setSize] = useState('');
 
-   window.addEventListener('resize', () => {
-    const width = window.innerWidth;
-    if (width <= 576) return setSize('x-small');
-    if (width > 577 && width <= 768) return setSize('small');
-    if (width > 767 && width <= 1024) return setSize('medium');
-    if (width > 1025 && width <= 1440) return setSize('large');
-    if (width > 1441) return setSize('x-large');
-  });
+  window.addEventListener('resize', () => setSize(windowsSize));
 
-  useEffect(() => {
-    console.log(size)
-  }, [size])
-  
+  // useEffect(() => {
+  //   console.log(size);
+  // }, [size]);
 
   return (
     <CustomModal
