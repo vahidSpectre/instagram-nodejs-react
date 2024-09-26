@@ -19,19 +19,30 @@ const userSchema = new Schema({
     type: String,
     defualt: 'New account',
   },
-
-  imageurl: [
-    {
-      type: String,
-    },
-  ],
-
+  imageUrl: {
+    type: String,
+  },
   posts: [
     {
       type: mongoose.Types.ObjectId,
-      ref: 'posts',
+      ref: 'Post',
+    },
+  ],
+  bookmarked: [
+    {
+      type: mongoose.Types.ObjectId,
+      ref: 'Post',
+    },
+  ],
+  liked: [
+    {
+      type: mongoose.Types.ObjectId,
+      ref: 'Post',
     },
   ],
 });
 
-module.exports = mongoose.model('User', userSchema);
+module.exports = mongoose.model(
+  'User',
+  userSchema,
+);

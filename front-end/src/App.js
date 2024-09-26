@@ -28,7 +28,7 @@ function App() {
 
   return (
     <div className='app'>
-      <Suspense fallback={<div>loading...</div>}>  <Sidebar />
+      <Suspense fallback={<div>loading...</div>}>
         <Routes>
           <Route
             path='/signup'
@@ -50,7 +50,7 @@ function App() {
             path='/'
             element={
               <RequireAuth>
-              
+                <Sidebar />
                 <Home />
               </RequireAuth>
             }
@@ -68,6 +68,7 @@ function App() {
             path='/explore'
             element={
               <RequireAuth>
+                <Sidebar />
                 <Explore />
               </RequireAuth>
             }
@@ -76,6 +77,7 @@ function App() {
             path='/direct'
             element={
               <RequireAuth>
+                <Sidebar />
                 <Direct />
               </RequireAuth>
             }
@@ -84,6 +86,7 @@ function App() {
             path='/profile'
             element={
               <RequireAuth>
+                <Sidebar />
                 <Profile />
               </RequireAuth>
             }
@@ -92,6 +95,7 @@ function App() {
             path='/new-post'
             element={
               <RequireAuth>
+                <Sidebar />
                 <CreatePost />
               </RequireAuth>
             }

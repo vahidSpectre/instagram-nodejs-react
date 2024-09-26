@@ -12,7 +12,11 @@ const CustomModal = ({
   className,
 }) => {
   return (
-    <Modal open={open} onClose={onClose} className={classes.main}>
+    <Modal
+      open={open || false}
+      onClose={onClose || true}
+      className={classes.main}
+    >
       <motion.div
         initial={[{ scale: 1.05 }, initial]}
         animate={[{ scale: 1 }, animate]}

@@ -2,18 +2,18 @@ export const windowsSize = () => {
   const width = window.innerWidth;
 
   if (width <= 576) {
-    return 'x-small';
+    return 'xs';
   }
   if (width > 576 && width <= 768) {
-    return 'small';
+    return 's';
   }
   if (width > 768 && width <= 1024) {
-    return 'medium';
+    return 'm';
   }
   if (width > 1024 && width <= 1440) {
-    return 'large';
+    return 'l';
   }
   if (width > 1440) {
-    return 'x-large';
+    return 'xl';
   }
 };

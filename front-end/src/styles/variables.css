@@ -25,11 +25,12 @@
   --xpkxt7q: #53bdeb;
 
   --bw: #ffffff;
-  --black-1:#000000;
-  --black-2:#1f1f1f;
-  --black-3:#2c2c2c;
-  --black-4:#434343;
+  --black-1: #000000;
+  --black-2: #1f1f1f;
+  --black-3: #252525;
+  --black-4: #272727;
 
+  --dbbg: rgb(110, 110, 110);
 
   --sidebar-width: 10%;
   --base-unit: 4px;
