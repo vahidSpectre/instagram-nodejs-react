@@ -24,7 +24,7 @@ app.use(
 app.use('/postImages', express.static(path.join(__dirname, '/postImages')));
 
 app.use('/authentication', authRoutes);
-app.use('/new', createPostRoutes);
+app.use('/post', createPostRoutes);
 
 mongoose.connect('mongodb://127.0.0.1:27017/instagram').then(() => {
   app.listen(8080, () => {

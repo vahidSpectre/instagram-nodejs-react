@@ -6,12 +6,11 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import CustomModal from './CustomModal';
 
-import { windowsSize } from '../utils/helpers';
 import { modalActions } from '../store/store';
 
 import classes from './NewPost.module.css';
 import { createPost } from '../services/api';
-const NewPost = ({ open, onClose }) => {
+const NewPost = ({ open, onClose,windowSize }) => {
   const [extend, setExtend] = useState(0);
   const [size, setSize] = useState('');
   const [postImages, setPostImages] = useState([]);
@@ -27,11 +26,10 @@ const NewPost = ({ open, onClose }) => {
 
   const dispatch = useDispatch()
 
-  window.addEventListener('resize', () => setSize(windowsSize));
-
   useEffect(() => {
-    window.addEventListener('load', () => setSize(windowsSize));
-  }, []);
+    setSize(windowSize)
+  }, [windowSize])
+  
 
   useEffect(() => {
     setExtend(0);

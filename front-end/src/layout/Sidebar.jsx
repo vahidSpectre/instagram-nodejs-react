@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, memo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Instagram } from '@mui/icons-material';
@@ -10,7 +10,7 @@ import { windowsSize } from '../utils/helpers';
 
 import ss from '../styles/layout.module.css';
 import classes from './Sidebar.module.css';
-const Sidebar = () => {
+const Sidebar = ({winodwSize}) => {
   const [openModal, setOpenModal] = useState(false);
   const [size, setSize] = useState('');
 
@@ -76,7 +76,7 @@ const Sidebar = () => {
         <Menu className={classes.menu} open={true } />
       </div> */}
       {size === 'm' || size === 'l' || size === 'xl' ? (
-        <NewPost open={openModal} onClose={hadnleCloseModal} />
+        <NewPost open={openModal} onClose={hadnleCloseModal} windowSize={windowsSize}/>
       ) : (
         ''
       )}
@@ -84,4 +84,4 @@ const Sidebar = () => {
   );
 };
 
-export default Sidebar;
+export default memo(Sidebar);

@@ -41,7 +41,7 @@ export const createPost = async (data, token) => {
   }
   formData.append('caption', data.caption);
 
-  const response = await fetch(`${baseURL}/new/create`, {
+  const response = await fetch(`${baseURL}/post/create`, {
     method: 'POST',
     headers: {
       Authorization: 'bearer ' + token,
@@ -50,6 +50,25 @@ export const createPost = async (data, token) => {
   });
   if (!response.ok) {
     return 'Createtion failed';
+  }
+  const result = await response.json();
+  return { response, result };
+};
+
+export const updatePost = async () => {};
+
+export const deletePost = async () => {};
+
+export const getAllPosts = async (token, page) => {
+  const response = await fetch(`${baseURL}/post/get?page=` + page, {
+    method: 'GET',
+    headers: {
+      Authorization: 'bearer ' + token,
+    },
+  });
+
+  if (!response.ok) {
+    return 'Failed to fetch';
   }
   const result = await response.json();
   return { response, result };
