@@ -12,6 +12,7 @@
   align-items: center;
   color: var(--bw);
   position: relative;
+   border: 1px solid var(--x29xchp);
 }
 .header {
   top: 0;

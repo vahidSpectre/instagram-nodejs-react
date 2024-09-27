@@ -12,7 +12,6 @@ function App() {
   const Signup = React.lazy(() => import('./pages/Signup'));
   const Login = React.lazy(() => import('./pages/Login'));
   const Home = React.lazy(() => import('./pages/Home'));
-  const Search = React.lazy(() => import('./pages/Search'));
   const Explore = React.lazy(() => import('./pages/Explore'));
   const Direct = React.lazy(() => import('./pages/Direct'));
   const Profile = React.lazy(() => import('./pages/Profile'));
@@ -30,7 +29,7 @@ function App() {
 
   const windowsSize = () => {
     const width = window.innerWidth;
-  if (width <= 576) {
+    if (width <= 576) {
       return 'xs';
     }
     if (width > 576 && width <= 768) {
@@ -45,7 +44,6 @@ function App() {
     if (width > 1440) {
       return 'xl';
     }
-  
   };
 
   window.addEventListener('load', () => setSize(windowsSize));
@@ -75,17 +73,8 @@ function App() {
             path='/'
             element={
               <RequireAuth>
-                <Sidebar winodwSize={size} />
+                <Sidebar windowSize={size} />
                 <Home />
-              </RequireAuth>
-            }
-          />
-          <Route
-            path='/search'
-            element={
-              <RequireAuth>
-                <Sidebar winodwSize={size} />
-                <Search />
               </RequireAuth>
             }
           />
@@ -93,7 +82,7 @@ function App() {
             path='/explore'
             element={
               <RequireAuth>
-                <Sidebar winodwSize={size} />
+                <Sidebar windowSize={size} />
                 <Explore windowSize={size} />
               </RequireAuth>
             }
@@ -102,7 +91,7 @@ function App() {
             path='/direct'
             element={
               <RequireAuth>
-                <Sidebar winodwSize={size} />
+                <Sidebar windowSize={size} />
                 <Direct />
               </RequireAuth>
             }
@@ -111,7 +100,7 @@ function App() {
             path='/profile'
             element={
               <RequireAuth>
-                <Sidebar winodwSize={size} />
+                <Sidebar windowSize={size} />
                 <Profile />
               </RequireAuth>
             }
@@ -120,7 +109,7 @@ function App() {
             path='/new-post'
             element={
               <RequireAuth>
-                <Sidebar winodwSize={size} />
+                <Sidebar windowSize={size} />
                 <CreatePost />
               </RequireAuth>
             }

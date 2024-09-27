@@ -7,7 +7,9 @@ const mongoose = require('mongoose');
 const { isAuth } = require('./middlewares/is-auth');
 
 const authRoutes = require('./routes/auth');
-const createPostRoutes = require('./routes/post');
+const postRoutes = require('./routes/post');
+const userRoutes = require('./routes/user')
+const commentRoutes = require('./routes/comment')
 
 const app = express();
 
@@ -22,9 +24,12 @@ app.use(
 );
 
 app.use('/postImages', express.static(path.join(__dirname, '/postImages')));
+app.use('/profileImages', express.static(path.join(__dirname, '/profileImages')));
 
 app.use('/authentication', authRoutes);
-app.use('/post', createPostRoutes);
+app.use('/post', postRoutes);
+app.use('/user', userRoutes);
+app.use('/comment', commentRoutes);
 
 mongoose.connect('mongodb://127.0.0.1:27017/instagram').then(() => {
   app.listen(8080, () => {

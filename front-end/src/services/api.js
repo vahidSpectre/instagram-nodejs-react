@@ -73,3 +73,14 @@ export const getAllPosts = async (token, page) => {
   const result = await response.json();
   return { response, result };
 };
+
+export const searchUsers = async (token, param) => {
+  const response = await fetch(`${baseURL}/user/search?param=` + param, {
+    headers: { Authorization: 'bearer ' + token },
+  });
+  if (!response.ok) {
+    return 'Somthing went wrong!';
+  }
+  const result = await response.json();
+  return { response, result };
+};

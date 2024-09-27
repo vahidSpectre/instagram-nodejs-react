@@ -41,7 +41,7 @@ const postSchema = new Schema(
       },
     ],
   },
-  { timeseries: true },
+  { timestamps: true },
 );
 
 module.exports = mongoose.model('Post', postSchema);

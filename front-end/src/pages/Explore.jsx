@@ -19,7 +19,6 @@ const Explore = ({ windowSize }) => {
   const token = useSelector(state => state.tokenStore.token);
 
   const getPosts = async page => {
-    console.log('req sent');
     const serverRes = await getAllPosts(token, page);
     setRes(pre => [...pre, serverRes]);
   };
@@ -107,7 +106,6 @@ const Explore = ({ windowSize }) => {
                 <img
                   src={`http://192.168.1.10:8080/${item.cover}?w=164&h=164&fit=crop&auto=format`}
                   loading='lazy'
-                  ref={imgRef}
                 />
               ) : (
                 <Skeleton variant='rectangular' />

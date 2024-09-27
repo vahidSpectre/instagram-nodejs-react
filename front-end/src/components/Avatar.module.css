@@ -1,0 +1,41 @@
+@import url('../styles/variables.css');
+
+.avatar_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: transparent;
+  position: relative;  
+}
+.avatar_border {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%; 
+  border-top: 1.5px color-mix(in srgb, #f09433 50%, #e6683c 50%);
+  border-right: 1.5px color-mix(in srgb, #e6683c 50%, #dc2743 50%);
+  border-bottom: 1.5px color-mix(in srgb, #dc2743 50%, #cc2366 50%);
+  border-left: 1.5px color-mix(in srgb, #cc2366 50%, #f09433 50%);
+  animation: spin 2s infinite alternate;
+}
+
+.avatar_image {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

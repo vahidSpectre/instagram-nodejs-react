@@ -6,13 +6,14 @@ import { Instagram } from '@mui/icons-material';
 import { modalActions } from '../store/store';
 
 import NewPost from '../components/NewPost';
-import { windowsSize } from '../utils/helpers';
+import SearchPanel from './SearchPanel';
 
 import ss from '../styles/layout.module.css';
 import classes from './Sidebar.module.css';
-const Sidebar = ({winodwSize}) => {
+const Sidebar = ({ windowSize }) => {
   const [openModal, setOpenModal] = useState(false);
   const [size, setSize] = useState('');
+  const [searchPanel, setSearchPanel] = useState(false);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -24,8 +25,6 @@ const Sidebar = ({winodwSize}) => {
     dispatch(modalActions.closeModal());
   };
 
-  window.addEventListener('resize', () => setSize(windowsSize));
-
   const routeCheck = () => {
     if (size === 'x-small' || size === 'small') {
       navigate('/new-post');
@@ -36,8 +35,8 @@ const Sidebar = ({winodwSize}) => {
   };
 
   useEffect(() => {
-    window.addEventListener('load', setSize(windowsSize));
-  }, []);
+    setSize(windowSize);
+  }, [windowSize]);
 
   useEffect(() => {
     if (modalState) {
@@ -55,7 +54,11 @@ const Sidebar = ({winodwSize}) => {
         </div>
         <div className={classes.action_section}>
           <button onClick={() => navigate('/')}>home</button>
-          <button onClick={() => navigate('/search')}>search</button>
+          {size === 'm' || size === 'l' || size === 'xl' ? (
+            <button onClick={()=>setSearchPanel(!searchPanel)}>search</button>
+          ) : (
+            ''
+          )}
           <button onClick={() => navigate('/explore')}>explore</button>
 
           {size === 'm' || size === 'l' || size === 'xl' ? (
@@ -76,10 +79,15 @@ const Sidebar = ({winodwSize}) => {
         <Menu className={classes.menu} open={true } />
       </div> */}
       {size === 'm' || size === 'l' || size === 'xl' ? (
-        <NewPost open={openModal} onClose={hadnleCloseModal} windowSize={windowsSize}/>
+        <NewPost
+          open={openModal}
+          onClose={hadnleCloseModal}
+          windowSize={size}
+        />
       ) : (
         ''
       )}
+      <SearchPanel openDrawer={searchPanel} windowSize={windowSize} isClosed={setSearchPanel}/>
     </div>
   );
 };
