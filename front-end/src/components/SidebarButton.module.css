@@ -1,0 +1,25 @@
+@import url('../styles/variables.css');
+
+.main {
+  display: flex;
+  color: white;
+  align-items: center;
+  width: 90%;
+  border-radius: calc(3 * var(--base-unit));
+  padding: 10px;
+  transition: background-color 0.25s;
+  cursor: pointer;
+}
+.main:hover {
+  background-color: var(--xcmwmc4);
+}
+.icon {
+  aspect-ratio: 1;
+  width: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.text {
+  margin-left: 15px;
+}

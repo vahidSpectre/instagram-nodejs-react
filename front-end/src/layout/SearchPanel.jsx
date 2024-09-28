@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import { motion } from 'framer-motion';
@@ -11,6 +11,9 @@ const SearchPanel = ({ openDrawer, isClosed, windowSize }) => {
   const [open, setOpen] = useState(false);
   const [userSearchParam, setUserSearchParam] = useState('');
   const [foundUsers, setFoundUsers] = useState([]);
+  const [errorText, setErrorText] = useState('');
+
+  const searchInputRef = useRef();
 
   const token = useSelector(state => state.tokenStore.token);
 
@@ -18,8 +21,9 @@ const SearchPanel = ({ openDrawer, isClosed, windowSize }) => {
     if (openDrawer) setOpen(true);
     else {
       setOpen(false);
+      resetSearch();
     }
-  }, [openDrawer]);
+  }, [openDrawer, searchInputRef]);
 
   const initial = {
     width: '0',
@@ -56,15 +60,21 @@ const SearchPanel = ({ openDrawer, isClosed, windowSize }) => {
   const handleSeachUsers = async e => {
     e.preventDefault();
     const serverRes = await searchUsers(token, userSearchParam);
-
-    if (serverRes.response?.ok) {
-      setFoundUsers(serverRes.result.users);
-      console.log(serverRes.result.users);
+    if (!serverRes.response.ok) {
+      return setErrorText(serverRes.result.message);
     }
+    setFoundUsers(serverRes.result.users);
+    setErrorText('');
+  };
+
+  const resetSearch = () => {
+    searchInputRef.current.value = '';
+    setErrorText('');
+    setFoundUsers([]);
   };
 
   return (
-    <>
+    <form>
       <motion.div
         initial={initial}
         animate={animateBackdrop}
@@ -83,6 +93,7 @@ const SearchPanel = ({ openDrawer, isClosed, windowSize }) => {
             <input
               type='text'
               onChange={e => setUserSearchParam(e.target.value)}
+              ref={searchInputRef}
             />
             <button type='submit' onClick={handleSeachUsers}>
               seach
@@ -90,13 +101,22 @@ const SearchPanel = ({ openDrawer, isClosed, windowSize }) => {
           </form>
         </span>
         <span className={classes.panel_content}>
-          {foundUsers.length > 0 &&
+          {foundUsers.length > 0 && errorText === '' ? (
             foundUsers.map(user => {
-              return <UserSearchResult user={user} key={user._id} />;
-            })}
+              return (
+                <UserSearchResult
+                  user={user}
+                  key={user._id}
+                  isClosed={() => isClosed()}
+                />
+              );
+            })
+          ) : (
+            <p style={{ color: 'white' }}>{errorText}</p>
+          )}
         </span>
       </motion.div>
-    </>
+    </form>
   );
 };
 

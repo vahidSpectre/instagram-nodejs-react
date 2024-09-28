@@ -1,15 +1,28 @@
 import React, { useEffect, useState, memo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { Instagram } from '@mui/icons-material';
+import {
+  AddBox,
+  Cottage,
+  Explore,
+  FavoriteBorder,
+  Instagram,
+  Search,
+  Send,
+} from '@mui/icons-material';
 
 import { modalActions } from '../store/store';
 
 import NewPost from '../components/NewPost';
 import SearchPanel from './SearchPanel';
+import SidebarButton from '../components/SidebarButton';
+
+import { ReactComponent as inIcon } from '../assets/instagram-black-white.svg';
 
 import ss from '../styles/layout.module.css';
 import classes from './Sidebar.module.css';
+import { Avatar } from '@mui/material';
+
 const Sidebar = ({ windowSize }) => {
   const [openModal, setOpenModal] = useState(false);
   const [size, setSize] = useState('');
@@ -46,33 +59,64 @@ const Sidebar = ({ windowSize }) => {
     }
   }, [modalState]);
 
+  const handleNav = path => {
+    navigate(path);
+    setSearchPanel(false);
+  };
+
   return (
     <div className={`${classes.main} ${ss.sb}`}>
       <div className={classes.actions_wrapper}>
         <div className={classes.logo_section}>
-          <Instagram />
+          {/* <SvgIcon component={inIcon} viewBox='0 0 35 35' /> */}
         </div>
         <div className={classes.action_section}>
-          <button onClick={() => navigate('/')}>home</button>
+          <SidebarButton
+            compoenent={<Cottage fontSize='large' />}
+            text={'Home'}
+            onClick={() => handleNav('/')}
+          />
           {size === 'm' || size === 'l' || size === 'xl' ? (
-            <button onClick={()=>setSearchPanel(!searchPanel)}>search</button>
+            <SidebarButton
+              compoenent={<Search fontSize='large' />}
+              text={'Search'}
+              onClick={() => setSearchPanel(!searchPanel)}
+            />
           ) : (
             ''
           )}
-          <button onClick={() => navigate('/explore')}>explore</button>
-
+          <SidebarButton
+            compoenent={<Explore fontSize='large' />}
+            text={'Explore'}
+            onClick={() => handleNav('/explore')}
+          />
           {size === 'm' || size === 'l' || size === 'xl' ? (
             <>
-              <button onClick={() => navigate('/direct')}>direct</button>
-              <button onClick={() => navigate('/notifications')}>
-                notifications
-              </button>
+              <SidebarButton
+                compoenent={
+                  <Send fontSize='large' sx={{ transform: 'rotate(-45deg)' }} />
+                }
+                text={'Direct'}
+                onClick={() => handleNav('/direct')}
+              />
+              <SidebarButton
+                compoenent={<FavoriteBorder fontSize='large' />}
+                text={'Notifications'}
+                // onClick={}
+              />
             </>
           ) : (
             ''
           )}
-          <button onClick={routeCheck}>create</button>
-          <button onClick={() => navigate('/profile')}>profile</button>
+          <SidebarButton
+            compoenent={<AddBox fontSize='large' />}
+            text={'Create'}
+            onClick={routeCheck}
+          />
+          <SidebarButton
+            compoenent={<Avatar sx={{width:'40px',height:'40px'}} story={true} />}
+            text={'Profile'}
+          />
         </div>
       </div>
       {/* <div className={classes.menu_section}>
@@ -87,7 +131,11 @@ const Sidebar = ({ windowSize }) => {
       ) : (
         ''
       )}
-      <SearchPanel openDrawer={searchPanel} windowSize={windowSize} isClosed={setSearchPanel}/>
+      <SearchPanel
+        openDrawer={searchPanel}
+        windowSize={windowSize}
+        isClosed={setSearchPanel}
+      />
     </div>
   );
 };

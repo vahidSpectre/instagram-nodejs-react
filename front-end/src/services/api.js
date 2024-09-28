@@ -78,8 +78,16 @@ export const searchUsers = async (token, param) => {
   const response = await fetch(`${baseURL}/user/search?param=` + param, {
     headers: { Authorization: 'bearer ' + token },
   });
+  const result = await response.json();
+  return { response, result };
+};
+
+export const getUser = async (token, id) => {
+  const response = await fetch(`${baseURL}/user/find?id=` + id, {
+    headers: { Authorization: 'bearer ' + token },
+  });
   if (!response.ok) {
-    return 'Somthing went wrong!';
+    return 'User not found';
   }
   const result = await response.json();
   return { response, result };

@@ -3,6 +3,7 @@ import { Route, Routes, Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import Sidebar from './layout/Sidebar';
+import Spinner from './components/Spinner';
 
 import './App.css';
 
@@ -16,6 +17,7 @@ function App() {
   const Direct = React.lazy(() => import('./pages/Direct'));
   const Profile = React.lazy(() => import('./pages/Profile'));
   const CreatePost = React.lazy(() => import('./pages/CreatePost'));
+  const NotFound = React.lazy(() => import('./pages/NotFound'));
 
   const token = useSelector(state => state.tokenStore.token);
 
@@ -51,7 +53,13 @@ function App() {
 
   return (
     <div className='app'>
-      <Suspense fallback={<div>loading...</div>}>
+      <Suspense
+        fallback={
+          <div className='spinner_backdrop'>
+            <Spinner />
+          </div>
+        }
+      >
         <Routes>
           <Route
             path='/signup'
@@ -97,7 +105,7 @@ function App() {
             }
           />
           <Route
-            path='/profile'
+            path='/profile/:id'
             element={
               <RequireAuth>
                 <Sidebar windowSize={size} />
@@ -111,6 +119,15 @@ function App() {
               <RequireAuth>
                 <Sidebar windowSize={size} />
                 <CreatePost />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path='/*'
+            element={
+              <RequireAuth>
+                <Sidebar windowSize={size} />
+                <NotFound />
               </RequireAuth>
             }
           />

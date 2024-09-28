@@ -1,12 +1,11 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { ImageList, ImageListItem, Skeleton } from '@mui/material';
 
 import { getAllPosts } from '../services/api';
 
 import sharedStyles from '../styles/layout.module.css';
 import classes from './Explore.module.css';
-import { ImageList, ImageListItem, Skeleton } from '@mui/material';
-
 const Explore = ({ windowSize }) => {
   const [res, setRes] = useState([]);
   const [page, setPage] = useState(1);
@@ -102,14 +101,9 @@ const Explore = ({ windowSize }) => {
               cols={returnCols(i)}
               rows={returnCols(i)}
             >
-              {item ? (
-                <img
-                  src={`http://192.168.1.10:8080/${item.cover}?w=164&h=164&fit=crop&auto=format`}
-                  loading='lazy'
-                />
-              ) : (
-                <Skeleton variant='rectangular' />
-              )}
+              <img
+                src={`http://192.168.1.10:8080/${item.cover}?w=164&h=164&fit=crop&auto=format`}
+              />
             </ImageListItem>
           );
         })}
