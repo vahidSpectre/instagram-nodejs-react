@@ -1,6 +1,36 @@
+@import url(./styles/variables.css);
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
   max-width: 100vw;
+  scroll-behavior: smooth;
+}
+::-webkit-scrollbar {
+  background-color: var(--black-1);
+  width: 8px;
+  transition: all 0.5s linear;
+  -moz-transition: all 0.5s linear;
+  -webkit-transition: all 0.5s linear;
+  -o-transition: all 0.5s linear;
+  -ms-transition: all 0.5s linear;
+}
+::-webkit-scrollbar:hover {
+  background-color: rgb(18, 18, 18);
+}
+::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  background-color: var(--dbbg);
+  cursor: pointer;
+  transition: all 0.5s linear;
+  -moz-transition: all 0.5s linear;
+  -webkit-transition: all 0.5s linear;
+  -o-transition: all 0.5s linear;
+  -ms-transition: all 0.5s linear;
+}
+@media only screen and (max-width: 768px) {
+  ::-webkit-scrollbar,
+  ::-webkit-slider-thumb {
+    display: none;
+  }
 }

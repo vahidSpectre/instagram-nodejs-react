@@ -1,114 +1,103 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { ImageList, ImageListItem, Skeleton } from '@mui/material';
+import { ImageList } from '@mui/material';
 
 import { getAllPosts } from '../services/api';
+import ExploreItem from '../components/ExploreItem';
 
 import sharedStyles from '../styles/layout.module.css';
 import classes from './Explore.module.css';
+import Spinner from '../components/Spinner';
 const Explore = ({ windowSize }) => {
   const [res, setRes] = useState([]);
-  const [page, setPage] = useState(1);
   const [postData, setPostData] = useState([]);
+  const [page, setPage] = useState(1);
   const [size, setSize] = useState('');
   const [cols, setCols] = useState(0);
+  const [totalItems, setTotalItems] = useState(1);
+  const [isIntersecting, setIsIntersecting] = useState(true);
 
-  const imgRef = useRef();
+  const loadingRef = useRef();
 
   const token = useSelector(state => state.tokenStore.token);
+    const SidebarState = useSelector(state => state.sidebarStore.fullWidth);
 
-  const getPosts = async page => {
+  const getPosts = async (token, page) => {
     const serverRes = await getAllPosts(token, page);
     setRes(pre => [...pre, serverRes]);
+    setTotalItems(serverRes.result.totalItems);
   };
-
-  useEffect(() => {
-    getPosts(page);
-  }, []);
 
   useEffect(() => {
     setSize(windowSize);
   }, [windowSize]);
 
-  const fetchNextPage = () => {
-    setPage(page + 1);
-    getPosts(page + 1);
-  };
-
   useEffect(() => {
     if (res.length > 0) {
-      setPostData(state => [...state, ...res.at(-1).result?.finallPosts]);
+      setPostData(state => [...state, ...res.at(-1).result.finallPosts]);
     }
   }, [res]);
 
   useEffect(() => {
-    if (size === 's' || size === 'xs') setCols(4);
+    if (size === 's' || size === 'xs') setCols(3);
     if (size === 'm') setCols(4);
     if (size === 'l') setCols(5);
     if (size === 'xl') setCols(6);
-    // alert(size)
   }, [size]);
 
-  const returnCols = i => {
-    if (size === 'xl') {
-      if (i % 8 === 0) return 2;
-      if (i % 8 === 1) return 1;
-      if (i % 8 === 2) return 1;
-      if (i % 8 === 3) return 2;
-    }
-    if (size === 'l') {
-      if (i % 4 === 0) return 2;
-      if (i % 4 === 1) return 2;
-      if (i % 4 === 2) return 1;
-    }
-    if (size === 'm' || size === 'xs') {
-      if (i % 3 === 0) return 2;
-      if (i % 3 === 1) return 1;
-      if (i % 3 === 2) return 1;
-    }
-  };
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      entries => {
+        setIsIntersecting(entries[0].isIntersecting);
+      },
+      {
+        threshold: 0,
+        rootMargin: '0px',
+      },
+    );
+    if (loadingRef.current) observer.observe(loadingRef.current);
 
-  // useEffect(() => {
-  //   console.log(imgRef.current);
-  //   const observer = new IntersectionObserver(
-  //     ({ entries }) => {
-  //       entries.ma
-  //     },
-  //     {
-  //       threshold: 1,
-  //       rootMargin: '0px',
-  //     },
-  //   );
-  //   if (imgRef.current) observer.observe(imgRef.current);
+    return () => {
+      if (loadingRef.current) observer.unobserve(loadingRef.current);
+    };
+  }, [loadingRef]);
 
-  //   return () => {
-  //     if (imgRef.current) observer.unobserve(imgRef.current);
-  //   };
-  // }, [imgRef]);
+  useEffect(() => {
+    if (isIntersecting) {
+      getPosts(token, page);
+      setPage(page + 1);
+    }
+  }, [isIntersecting]);
 
   return (
-    <div className={`${classes.main} ${sharedStyles.shared}`}>
+    <div
+      className={`${classes.main} ${sharedStyles.shared} ${
+        SidebarState ? sharedStyles.normal : sharedStyles.full
+      }`}
+    >
       <ImageList
-        sx={{ width: '100%', height: 'fit-content' }}
+        sx={{
+          width: '100%',
+          height: 'fit-content',
+          minHeight: 'fit-content',
+          overflow: 'hidden',
+        }}
         cols={cols}
         rowHeight={164}
-        gap={'5px'}
+        gap={5}
       >
         {postData.map((item, i) => {
           return (
-            <ImageListItem
-              key={item._id}
-              cols={returnCols(i)}
-              rows={returnCols(i)}
-            >
-              <img
-                src={`http://192.168.1.10:8080/${item.cover}?w=164&h=164&fit=crop&auto=format`}
-              />
-            </ImageListItem>
+            <ExploreItem i={i} item={item} size={windowSize} key={item._id} />
           );
         })}
       </ImageList>
-      <button onClick={fetchNextPage}>ssssssssssssssss</button>
+      {postData.length < totalItems && (
+        <center ref={loadingRef}>
+          <Spinner />
+        </center>
+      )}
+      <center></center>
     </div>
   );
 };

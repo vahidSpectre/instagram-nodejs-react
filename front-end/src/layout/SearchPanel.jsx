@@ -1,10 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { motion } from 'framer-motion';
 
 import UserSearchResult from '../components/UserSearchResult';
 import { searchUsers } from '../services/api';
+import { sidebarAction } from '../store/store';
 
 import classes from './SearchPanel.module.css';
 const SearchPanel = ({ openDrawer, isClosed, windowSize }) => {
@@ -14,6 +15,7 @@ const SearchPanel = ({ openDrawer, isClosed, windowSize }) => {
   const [errorText, setErrorText] = useState('');
 
   const searchInputRef = useRef();
+  const dispatch = useDispatch()
 
   const token = useSelector(state => state.tokenStore.token);
 
@@ -71,6 +73,7 @@ const SearchPanel = ({ openDrawer, isClosed, windowSize }) => {
     searchInputRef.current.value = '';
     setErrorText('');
     setFoundUsers([]);
+    dispatch(sidebarAction.open())
   };
 
   return (

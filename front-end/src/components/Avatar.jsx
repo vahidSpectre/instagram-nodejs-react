@@ -1,8 +1,9 @@
 import React from 'react';
+import { baseURL } from '../services/api';
 
 import classes from './Avatar.module.css';
-const Avatar = ({ story, isLoading, profileUrl }) => {
-  const returnBorderStyle = () => {
+const Avatar = ({ size, story, isLoading, profileUrl }) => {
+  const borderStyle = () => {
     if (story) {
       if (isLoading) {
         return {
@@ -22,15 +23,17 @@ const Avatar = ({ story, isLoading, profileUrl }) => {
     }
   };
   return (
-    <div className={classes.avatar_container}>
-      {story && (
-        <div className={classes.avatar_border} style={returnBorderStyle()} />
-      )}
+    <div
+      className={classes.avatar_container}
+      style={{ width: size, height: size }}
+    >
+      {story && <div className={classes.avatar_border} style={borderStyle()} />}
       {profileUrl && (
         <img
-          src={`http://192.168.1.10:8080/${profileUrl}`}
+          src={`${baseURL}/${profileUrl}`}
           alt=''
           className={classes.avatar_image}
+          style={{ width: `${size - 8}px`, height: `${size - 8}px` }}
         />
       )}
     </div>

@@ -6,6 +6,7 @@ import Sidebar from './layout/Sidebar';
 import Spinner from './components/Spinner';
 
 import './App.css';
+import Info from './layout/Info';
 
 function App() {
   const [size, setSize] = useState('');
@@ -133,6 +134,7 @@ function App() {
           />
         </Routes>
       </Suspense>
+      <Info/>
     </div>
   );
 }

@@ -15,7 +15,7 @@
   position: absolute;
   height: 100vh !important;
   background-color: var(--black-1);
-  left: 101%;
+  left: 100%;
   top: 0;
   bottom: 0;
   border-radius: 0 calc(4 * var(--base-unit)) calc(4 * var(--base-unit)) 0;

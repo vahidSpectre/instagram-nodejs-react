@@ -1,4 +1,4 @@
-const baseURL = 'http://192.168.1.10:8080';
+export const baseURL = 'http://192.168.1.10:8080';
 
 export const signup = async data => {
   const response = await fetch(`${baseURL}/authentication/signup`, {
@@ -27,9 +27,6 @@ export const login = async data => {
       password: data.password,
     }),
   });
-  if (!response.ok) {
-    return 'Login failed';
-  }
   const result = await response.json();
   return { response, result };
 };
@@ -49,7 +46,7 @@ export const createPost = async (data, token) => {
     body: formData,
   });
   if (!response.ok) {
-    return 'Createtion failed';
+    return 'Creation failed';
   }
   const result = await response.json();
   return { response, result };
@@ -60,17 +57,25 @@ export const updatePost = async () => {};
 export const deletePost = async () => {};
 
 export const getAllPosts = async (token, page) => {
-  const response = await fetch(`${baseURL}/post/get?page=` + page, {
+  const response = await fetch(`${baseURL}/post/getall?page=` + page, {
     method: 'GET',
     headers: {
       Authorization: 'bearer ' + token,
     },
   });
 
-  if (!response.ok) {
-    return 'Failed to fetch';
-  }
   const result = await response.json();
+  return { response, result };
+};
+
+export const getPost = async (token, id) => {
+  const response = await fetch(`${baseURL}/post/find?id=` + id, {
+    headers: { Authorization: 'bearer ' + token },
+  });
+
+  if (!response.ok) return 'Post not found!';
+  const result = await response.json();
+
   return { response, result };
 };
 
@@ -89,6 +94,38 @@ export const getUser = async (token, id) => {
   if (!response.ok) {
     return 'User not found';
   }
+  const result = await response.json();
+  return { response, result };
+};
+
+export const followUser = async (token, targetId) => {
+  const response = await fetch(`${baseURL}/user/follow`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'bearer ' + token,
+    },
+    body: JSON.stringify({ targetId }),
+  });
+  const result = await response.json();
+  return { response, result };
+};
+
+export const followUserState = async (token, targetId) => {
+  const response = await fetch(`${baseURL}/user/follow?id=${targetId}`, {
+    method: 'GET',
+    headers: {
+      Authorization: 'bearer ' + token,
+    },
+  });
+  const result = await response.json();
+  return { response, result };
+};
+
+export const getFeed = async (token, page) => {
+  const response = await fetch(`${baseURL}/feed/home?page=${page}`, {
+    headers: { Authorization: 'bearer ' + token },
+  });
   const result = await response.json();
   return { response, result };
 };

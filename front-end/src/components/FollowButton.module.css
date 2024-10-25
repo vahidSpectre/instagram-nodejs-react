@@ -1,0 +1,23 @@
+@import url(../styles/variables.css);
+.main {
+  padding: 6px 0;
+  width: 100%;
+  font-size: x-small;
+  font-weight: bold;
+  border-radius: var(--base-unit);
+  cursor: pointer;
+  background-color: unset;
+  color: var(--kw);
+  transition: all 0.5s;
+}
+.active {
+  background-color: var(--instagram-blue);
+  border: 1px solid var(--instagram-blue);
+}
+.deactive {
+  background-color: transparent;
+  border: 1px solid var(--instagram-blue);
+}
+.dn {
+  display: none;
+}

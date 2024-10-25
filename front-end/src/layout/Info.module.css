@@ -1,0 +1,9 @@
+.main {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: fit-content;
+  background-color: transparent;
+  width: 40%;
+  direction: rtl;
+}

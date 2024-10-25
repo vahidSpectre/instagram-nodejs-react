@@ -3,37 +3,46 @@ const path = require('path');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-
-const { isAuth } = require('./middlewares/is-auth');
+const http = require('http');
 
 const authRoutes = require('./routes/auth');
 const postRoutes = require('./routes/post');
-const userRoutes = require('./routes/user')
-const commentRoutes = require('./routes/comment')
+const userRoutes = require('./routes/user');
+const commentRoutes = require('./routes/comment');
+const feedRoutes = require('./routes/feed');
 
 const app = express();
+const server = http.createServer(app);
 
 app.use(bodyParser.json({ limit: '50mb' }));
 
-app.use(
-  cors({
-    origin: '*',
-    credentials: true,
-    allowedHeaders: ['Authorization', 'Content-Type'],
-  }),
-);
+app.use(cors());
 
 app.use('/postImages', express.static(path.join(__dirname, '/postImages')));
-app.use('/profileImages', express.static(path.join(__dirname, '/profileImages')));
+app.use(
+  '/profileImages',
+  express.static(path.join(__dirname, '/profileImages')),
+);
 
 app.use('/authentication', authRoutes);
 app.use('/post', postRoutes);
 app.use('/user', userRoutes);
 app.use('/comment', commentRoutes);
+app.use('/feed', feedRoutes);
 
-mongoose.connect('mongodb://127.0.0.1:27017/instagram').then(() => {
-  app.listen(8080, () => {
-    console.log('server is running!');
+mongoose.connect('mongodb://127.0.0.1:27017/instagram').then(async() => {
+  server.listen(8080, () => {
+    console.log('Connected to Server');
+  });
+
+  const io = require('./socket').init(server);
+  const r = require('./socket');
+
+  io.on('connection', socket => {
+
+    socket.on('join', userId => {
+      socket.join(userId);
+    });
   });
 });
 

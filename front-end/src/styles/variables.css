@@ -32,6 +32,9 @@
 
   --dbbg: rgb(110, 110, 110);
 
-  --sidebar-width: 15%;
+  --sidebar-width: 22%;
+  --sidebar-width-big: 13%;
+  --sidebar-width-close: 5rem;
+  
   --base-unit: 4px;
 }

@@ -2,6 +2,66 @@
 @import url('../styles/layout.module.css');
 
 .main {
-
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+.content {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+.storyWrapper,
+.posts,
+.suggestions {
+  padding: 1rem;
+}
+.storyWrapper {
+  width: 100%;
+  height: fit-content;
+  display: flex;
+}
+.storyWrapper > * {
+  margin: 0 5px;
+}
+.contentWrapper {
+  flex: 1 1 100%;
+  display: flex;
+}
+.posts {
+  width: 65%;
+  height: inherit;
+}
+.suggestions {
+  width: 35%;
+  height: inherit;
+}
+.postInfoWrapper {
+  width: 25%;
+  height: 25%;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  max-width: 300px;
+  display: flex;
+  flex-direction: column;
+}
+
+@media only screen and (max-width: 576px) {
+  .posts {
+    width: 100% !important;
+  }
+
+  .suggestions {
+    display: none;
+  }
+}
+
+@media only screen and (min-width: 577px) and (max-width: 768px) {
+  .posts {
+    width: 100%;
+  }
+
+  .suggestions {
+    display: none;
+  }
 }

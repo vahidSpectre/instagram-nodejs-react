@@ -1,9 +1,11 @@
+const io = require('../socket');
 const Post = require('../models/post');
 const User = require('../models/user');
 
 exports.createPost = async (req, res, next) => {
   const caption = req.body.caption;
   const imageUrls = req.files;
+  const userId = req.userId;
 
   let creator;
 
@@ -28,6 +30,22 @@ exports.createPost = async (req, res, next) => {
       user.posts.push(post);
       return user.save();
     })
+    .then(async result => {
+      const populatedPost =await post.populate(
+        'creator',
+        'imageUrl username bio story',
+      );
+      creator.followers.forEach(async followerId => {
+        io.getIo().to(followerId.toString()).emit('posts', {
+          action: 'create',
+          post: populatedPost,
+        });
+      });
+      io.getIo().to(userId).emit('posts', {
+        action: 'create',
+        post: populatedPost,
+      });
+    })
     .then(result => {
       return res.status(201).json({
         message: 'Post created successfully!',
@@ -42,7 +60,7 @@ exports.createPost = async (req, res, next) => {
 
 exports.getPosts = async (req, res, next) => {
   const currentPage = req.query.page || 1;
-  const perPage = 10;
+  const perPage = 15;
   let totalItems;
   Post.find()
     .countDocuments()
@@ -73,4 +91,19 @@ exports.getPosts = async (req, res, next) => {
       }
       next(err);
     });
+};
+
+exports.getPost = async (req, res, next) => {
+  const id = req.query.id;
+
+  const post = await Post.findById(id);
+  if (!post) {
+    return res.status(404).json({
+      message: 'Post not found',
+    });
+  }
+  res.status(200).json({
+    message: 'Post found',
+    post,
+  });
 };

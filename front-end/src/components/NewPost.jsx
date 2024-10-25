@@ -7,10 +7,11 @@ import { useSelector, useDispatch } from 'react-redux';
 import CustomModal from './CustomModal';
 
 import { modalActions } from '../store/store';
+import { addMessageWithTimeout } from '../store/infoSlice';
 
 import classes from './NewPost.module.css';
 import { createPost } from '../services/api';
-const NewPost = ({ open, onClose,windowSize }) => {
+const NewPost = ({ open, onClose, windowSize }) => {
   const [extend, setExtend] = useState(0);
   const [size, setSize] = useState('');
   const [postImages, setPostImages] = useState([]);
@@ -24,12 +25,11 @@ const NewPost = ({ open, onClose,windowSize }) => {
 
   const token = useSelector(state => state.tokenStore.token);
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    setSize(windowSize)
-  }, [windowSize])
-  
+    setSize(windowSize);
+  }, [windowSize]);
 
   useEffect(() => {
     setExtend(0);
@@ -74,7 +74,7 @@ const NewPost = ({ open, onClose,windowSize }) => {
     setExtend(0);
     captionRef.current.value = '';
     tagsRef.current.value = '';
-    dispatch(modalActions.closeModal())
+    dispatch(modalActions.closeModal());
   };
 
   const handleUploadPost = async () => {
@@ -87,6 +87,7 @@ const NewPost = ({ open, onClose,windowSize }) => {
     );
     if (serverRes.response.ok) {
       handleResetPost();
+      dispatch(addMessageWithTimeout(serverRes.result.message));
     }
   };
 

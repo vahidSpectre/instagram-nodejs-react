@@ -1,6 +1,25 @@
-@import url('../styles/variables.css');
-@import url('../styles/layout.module.css');
+@import url(../styles/variables.css);
+@import url(../styles/layout.module.css);
 
 .main {
-  height: 300vh;
+  height: 100vh;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+}
+.content {
+  width: 100%;
+  margin:0 auto;
+  display: flex;
+  height: 100%;
+}
+.contacts_wrapper, .messages_wrapper{
+  border: 1px solid var(--x29xchp);
+}
+.contacts_wrapper {
+  width: 20%;
+  border-right: none;
+}
+.messages_wrapper{
+  width: 80%;
 }

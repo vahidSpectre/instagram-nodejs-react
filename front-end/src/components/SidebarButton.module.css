@@ -1,4 +1,4 @@
-@import url('../styles/variables.css');
+@import url(../styles/variables.css);
 
 .main {
   display: flex;
@@ -9,17 +9,62 @@
   padding: 10px;
   transition: background-color 0.25s;
   cursor: pointer;
+  transition: all 0.2s;
+  outline: none;
+  background-color: transparent;
+  border: none;
 }
 .main:hover {
   background-color: var(--xcmwmc4);
 }
+.main:focus {
+  animation: focus 0.25s;
+}
+.active {
+  background-color: var(--xcmwmc4);
+}
 .icon {
-  aspect-ratio: 1;
-  width: 2rem;
+  /* aspect-ratio: 1; */
   display: flex;
   align-items: center;
   justify-content: center;
 }
 .text {
   margin-left: 15px;
+}
+
+@keyframes focus {
+  0% {
+    transform: scale(.9);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@media only screen and (max-width: 576px) {
+  .main {
+    justify-content: center;
+  }
+  .main:hover {
+    background-color: transparent;
+  }
+  .text {
+    display: none;
+  }
+}
+
+@media only screen and (min-width: 577px) and (max-width: 768px) {
+  .main {
+    justify-content: center;
+  }
+  .main:hover {
+    background-color: transparent;
+  }
+  .text {
+    display: none;
+  }
 }

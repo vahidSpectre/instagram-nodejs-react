@@ -1,11 +1,18 @@
 @import url(./variables.css);
 
 .shared {
-  width: calc(100% - var(--sidebar-width));
   height: fit-content;
-  margin-left: var(--sidebar-width);
   background-color: var(--black-1);
   min-height: 100vh;
+  transition: all 0.1s;
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+.normal {
+  width: calc(100% - var(--sidebar-width));
+}
+.full {
+  width: calc(100% - var(--sidebar-width-close));
 }
 .sb {
   bottom: 0;
@@ -13,13 +20,13 @@
   height: 100vh;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: center ;
   justify-content: space-around;
+  transition: all 0.1s;
 }
 
 @media only screen and (max-width: 576px) {
   .shared {
-    background-color: blue;
     width: 100%;
     margin: 0;
   }
@@ -31,7 +38,6 @@
     right: 0;
     display: flex;
     flex-direction: row;
-    background-color: rgb(255, 225, 1);
   }
 }
 
@@ -56,16 +62,39 @@
   .shared {
     margin: 0 var(--sidebar-width);
   }
+  .normal {
+    margin: 0 var(--sidebar-width);
+  }
+  .full {
+    margin: 0 var(--sidebar-width-close);
+  }
 }
 
 @media only screen and (min-width: 1025px) and (max-width: 1440px) {
   .shared {
     margin: 0 var(--sidebar-width);
   }
+  .normal {
+    margin: 0 var(--sidebar-width);
+  }
+  .full {
+    margin: 0 var(--sidebar-width-close);
+  }
 }
 
 @media only screen and (min-width: 1441px) {
+  .sb {
+    width: var(--sidebar-width-big);
+  }
   .shared {
-    margin: 0 var(--sidebar-width);
+    width: calc(100% - var(--sidebar-width-big));
+  }
+  .normal {
+    width: calc(100% - var(--sidebar-width-big));
+    margin: 0 var(--sidebar-width-big);
+  }
+  .full {
+    width: calc(100% - var(--sidebar-width-close));
+    margin: 0 var(--sidebar-width-close);
   }
 }

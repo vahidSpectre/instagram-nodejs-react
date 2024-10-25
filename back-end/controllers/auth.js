@@ -1,4 +1,3 @@
-const express = require('express');
 const jwt = require('jsonwebtoken');
 const bycript = require('bcryptjs');
 
@@ -32,7 +31,7 @@ exports.signup = async (req, res, next) => {
       },
       'C8b3rPunk1sM!Fav0r1t3G@m3!',
       {
-        expiresIn: '100h',
+        expiresIn: '10000000000000000h',
       },
     );
     res.status(200).json({
@@ -70,11 +69,12 @@ exports.login = async (req, res, next) => {
     },
     'C8b3rPunk1sM!Fav0r1t3G@m3!',
     {
-      expiresIn: '100h',
+      expiresIn: '10000000000000000000h',
     },
   );
   res.status(200).json({
     token,
+    message:'Successful login!',
     user: {
       email: user.email,
       username: user.username,

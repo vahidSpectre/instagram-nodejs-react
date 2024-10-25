@@ -1,13 +1,26 @@
-import React from 'react';
+import React, { forwardRef, useEffect, useRef } from 'react';
+import { useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 
 import classes from './SidebarButton.module.css';
-import { Search } from '@mui/icons-material';
-const SidebarButton = ({ compoenent, text, onClick }) => {
+const SidebarButton = ({ compoenent, text, onClick, path }) => {
+  const location = useLocation().pathname.split('/').at(1);
+  const r = useRef();
+  const SidebarState = useSelector(state => state.sidebarStore.fullWidth);
+  console.log(location);
   return (
-    <div className={classes.main} onClick={onClick}>
-          <div className={ classes.icon}>{compoenent}</div>
-          <p className={classes.text }>{text}</p>
-    </div>
+    <button
+      className={`${classes.main} ${location === path ? classes.active : ''}`}
+      onClick={onClick}
+      style={{
+        justifyContent: `${!SidebarState ? 'center' : ''}`,
+        width: `${!SidebarState ? '80%' : '90%'}`,
+      }}
+      ref={r}
+    >
+      <div className={classes.icon}>{compoenent}</div>
+      {SidebarState && text && <p className={classes.text}>{text}</p>}
+    </button>
   );
 };
 

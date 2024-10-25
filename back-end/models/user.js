@@ -22,7 +22,7 @@ const userSchema = new Schema(
     },
     imageUrl: {
       type: String,
-      default:'profileImages/noimage.webp'
+      default: 'profileImages/noimage.webp',
     },
     posts: [
       {
@@ -46,6 +46,24 @@ const userSchema = new Schema(
       {
         type: mongoose.Types.ObjectId,
         ref: 'Story',
+      },
+    ],
+    following: [
+      {
+        type: mongoose.Types.ObjectId,
+        ref: 'User',
+      },
+    ],
+    followers: [
+      {
+        type: mongoose.Types.ObjectId,
+        ref: 'User',
+      },
+    ],
+    blocked: [
+      {
+        type: mongoose.Types.ObjectId,
+        ref: 'User',
       },
     ],
   },

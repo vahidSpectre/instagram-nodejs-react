@@ -14,6 +14,7 @@ router.post(
   postController.createPost,
 );
 
-router.get('/get', isAuth, postController.getPosts);
+router.get('/getall', isAuth, postController.getPosts);
+router.get('/find', isAuth,postController.getPost )
 
 module.exports = router;

@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { login } from '../services/api';
+import { addMessageWithTimeout } from '../store/infoSlice';
+
 import { tokenAction, userActions } from '../store/store';
 
 import classes from './Login.moduls.css';
@@ -13,7 +15,8 @@ const Login = () => {
 
 	const handleLogin = async () => {
 		const serverRes = await login({ email, password });
-		console.log(serverRes);
+		console.log(serverRes)
+		dispatch(addMessageWithTimeout(serverRes.result.message))
 		if (!serverRes.response.ok) {
 			return;
 		}

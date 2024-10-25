@@ -18,10 +18,11 @@ const CustomModal = ({
       className={classes.main}
     >
       <motion.div
-        initial={[{ scale: 1.05 }, initial]}
+        initial={[{ scale: 1.1 }, initial]}
         animate={[{ scale: 1 }, animate]}
         className={className}
-        transition={{ ease: 'easeOut', duration: 0.1 }}
+        transition={{ type:'tween',ease: 'easeOut', duration: 0.1 }}
+        style={{ outline: 'none' }}
       >
         {children}
       </motion.div>
