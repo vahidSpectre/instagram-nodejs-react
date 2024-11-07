@@ -7,7 +7,6 @@
     "server": "cd back-end && nodemon app.js",
     "client": "cd front-end && npm  start"
   },
-  "dependencies": {},
   "devDependencies": {
     "concurrently": "^9.0.1",
     "nodemon": "^3.1.7"

@@ -3,14 +3,16 @@ import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 
 import classes from './SidebarButton.module.css';
-const SidebarButton = ({ compoenent, text, onClick, path }) => {
+const SidebarButton = ({ compoenent, text, onClick, path, className }) => {
   const location = useLocation().pathname.split('/').at(1);
   const r = useRef();
   const SidebarState = useSelector(state => state.sidebarStore.fullWidth);
-  console.log(location);
+
   return (
     <button
-      className={`${classes.main} ${location === path ? classes.active : ''}`}
+      className={`${classes.main} ${
+        location === path ? classes.active : ''
+      } ${className}`}
       onClick={onClick}
       style={{
         justifyContent: `${!SidebarState ? 'center' : ''}`,

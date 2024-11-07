@@ -129,3 +129,29 @@ export const getFeed = async (token, page) => {
   const result = await response.json();
   return { response, result };
 };
+
+export const sendDirect = async (token, data) => {
+  const response = await fetch(`${baseURL}/direct/create`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'bearer ' + token,
+    },
+    body: JSON.stringify({
+      targetId: data.targetId,
+      message: data.message,
+    }),
+  });
+  const result = await response.json();
+  return { response, result };
+};
+
+export const getDirects = async (token) => {
+  const response = await fetch(`${baseURL}/direct/get`, {
+    method: 'GET',
+    headers: { Authorization: 'bearer ' + token },
+  });
+
+  const result = await response.json();
+  return { response, result };
+};

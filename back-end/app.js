@@ -10,6 +10,7 @@ const postRoutes = require('./routes/post');
 const userRoutes = require('./routes/user');
 const commentRoutes = require('./routes/comment');
 const feedRoutes = require('./routes/feed');
+const directRoutes = require('./routes/direct')
 
 const app = express();
 const server = http.createServer(app);
@@ -29,6 +30,7 @@ app.use('/post', postRoutes);
 app.use('/user', userRoutes);
 app.use('/comment', commentRoutes);
 app.use('/feed', feedRoutes);
+app.use('/direct',directRoutes)
 
 mongoose.connect('mongodb://127.0.0.1:27017/instagram').then(async() => {
   server.listen(8080, () => {

@@ -11,6 +11,7 @@ import {
   Send,
 } from '@mui/icons-material';
 import { Avatar, Menu } from '@mui/material';
+import { ReactComponent as Logo } from '../assets/instagram-logo.svg';
 
 import { modalActions, sidebarAction } from '../store/store';
 
@@ -66,11 +67,16 @@ const Sidebar = ({ windowSize }) => {
 
   const handleSearchPanel = () => {
     setSearchPanel(!searchPanel);
-    if (SidebarState) {
-      dispatch(sidebarAction.close());
-    } else {
-      dispatch(sidebarAction.open());
-    }
+  };
+
+  const handleNavigateDirect = () => {
+    navigate('/direct');
+    dispatch(sidebarAction.close());
+  };
+
+  const handleNavigate = path => {
+    navigate(path);
+    dispatch(sidebarAction.open());
   };
 
   return (
@@ -79,12 +85,18 @@ const Sidebar = ({ windowSize }) => {
       style={{ width: `${SidebarState ? '' : 'var(--sidebar-width-close)'}` }}
     >
       <div className={classes.actions_wrapper_big}>
-        <div className={classes.logo_section}></div>
+        <div className={classes.logo_section}>
+          <SidebarButton
+            compoenent={<Logo />}
+            text={'Instagram'}
+            className={classes.instagram_logo}
+          />
+        </div>
         <div className={classes.action_section}>
           <SidebarButton
             compoenent={<Cottage fontSize='large' />}
             text={'Home'}
-            onClick={() => handleNav('/')}
+            onClick={() => handleNavigate('/')}
             path={''}
           />
           <SidebarButton
@@ -104,7 +116,7 @@ const Sidebar = ({ windowSize }) => {
               <Send fontSize='large' sx={{ transform: 'rotate(-45deg)' }} />
             }
             text={'Direct'}
-            onClick={() => handleNav('/direct')}
+            onClick={handleNavigateDirect}
             path={'direct'}
           />
           <SidebarButton

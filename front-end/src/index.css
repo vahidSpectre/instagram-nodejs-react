@@ -1,4 +1,10 @@
 @import url(./styles/variables.css);
+
+@font-face {
+  font-family: banana;
+  src: url('../public/assets/fonts/BananasItalicPersonalUseRegular-WyBxO.ttf');
+}
+
 * {
   box-sizing: border-box;
   margin: 0;

@@ -66,6 +66,24 @@ const userSchema = new Schema(
         ref: 'User',
       },
     ],
+    directs: [
+      {
+        type: mongoose.Types.ObjectId,
+        ref: 'Direct',
+      },
+    ],
+    activeDirectUsers: [
+      {
+        type: mongoose.Types.ObjectId,
+        ref: 'User',
+      },
+    ],
+    contacts: [
+      {
+        type: mongoose.Types.ObjectId,
+        ref: 'User',
+      },
+    ],
   },
   { timestamps: true },
 );

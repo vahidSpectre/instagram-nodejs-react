@@ -13,6 +13,7 @@
   outline: none;
   background-color: transparent;
   border: none;
+  margin-bottom: 5px;
 }
 .main:hover {
   background-color: var(--xcmwmc4);
@@ -24,10 +25,16 @@
   background-color: var(--xcmwmc4);
 }
 .icon {
-  /* aspect-ratio: 1; */
   display: flex;
   align-items: center;
   justify-content: center;
+  height: 100%;
+  aspect-ratio: 1;
+  max-width: 2.5rem;
+}
+.icon > * {
+  width: 100%;
+  aspect-ratio: 1;
 }
 .text {
   margin-left: 15px;
@@ -35,7 +42,7 @@
 
 @keyframes focus {
   0% {
-    transform: scale(.9);
+    transform: scale(0.9);
   }
   50% {
     transform: scale(1.1);

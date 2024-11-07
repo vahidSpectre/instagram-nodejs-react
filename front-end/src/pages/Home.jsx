@@ -7,6 +7,7 @@ import { tokenAction } from '../store/store';
 import { baseURL, getFeed } from '../services/api';
 import Post from '../components/Post';
 import Avatar from '../components/Avatar';
+import Spinner from '../components/Spinner';
 
 import sharedStyles from '../styles/layout.module.css';
 import classes from './Home.module.css';
@@ -76,8 +77,13 @@ const Home = () => {
   };
 
   return (
-    <section className={`${classes.main} ${sharedStyles.shared} ${SidebarState?sharedStyles.normal:sharedStyles.full}`}>
+    <section
+      className={`${classes.main} ${sharedStyles.shared} ${
+        SidebarState ? sharedStyles.normal : sharedStyles.full
+      }`}
+    >
       <div className={classes.content}>
+        <button onClick={handleLogout}>Log out</button>
         <div className={classes.storyWrapper}>
           <Avatar story={true} isLoading={true} />
           <Avatar story={true} />
@@ -93,15 +99,9 @@ const Home = () => {
           </div>
           <div className={classes.suggestions}></div>
         </div>
-        <button onClick={handleLogout}>Log out</button>
-        <button
-          onClick={() => {
-            setPage(page + 1);
-          }}
-          ref={ref}
-        >
-          Show more
-        </button>
+        <center ref={ref}>
+          <Spinner />
+        </center>
       </div>
     </section>
   );

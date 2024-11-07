@@ -8,6 +8,7 @@ import { searchUsers } from '../services/api';
 import { sidebarAction } from '../store/store';
 
 import classes from './SearchPanel.module.css';
+import { useLocation } from 'react-router-dom';
 const SearchPanel = ({ openDrawer, isClosed, windowSize }) => {
   const [open, setOpen] = useState(false);
   const [userSearchParam, setUserSearchParam] = useState('');
@@ -15,15 +16,23 @@ const SearchPanel = ({ openDrawer, isClosed, windowSize }) => {
   const [errorText, setErrorText] = useState('');
 
   const searchInputRef = useRef();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+  const location = useLocation()
 
   const token = useSelector(state => state.tokenStore.token);
 
   useEffect(() => {
-    if (openDrawer) setOpen(true);
-    else {
+    if (openDrawer) {
+      setOpen(true);
+      dispatch(sidebarAction.close());
+    } else {
       setOpen(false);
       resetSearch();
+      if (location.pathname==='/direct') {
+         dispatch(sidebarAction.close());
+      } else {
+        dispatch(sidebarAction.open());
+      }
     }
   }, [openDrawer, searchInputRef]);
 
@@ -73,7 +82,7 @@ const SearchPanel = ({ openDrawer, isClosed, windowSize }) => {
     searchInputRef.current.value = '';
     setErrorText('');
     setFoundUsers([]);
-    dispatch(sidebarAction.open())
+    // dispatch(sidebarAction.open())
   };
 
   return (
